@@ -21,7 +21,7 @@ jobs:
         run: pwd
 
       - name: Initialize Project
-        uses: ./.github/actions
+        uses: ./.github/actions/setup-composite
 
       - name: Build Project
         run: npm run build
