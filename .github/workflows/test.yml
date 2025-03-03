@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Initialize Project
-        uses: .github/actions/init
+        uses: wlgns2223/cicd@dev
 
       - name: Build Project
         run: npm run build
