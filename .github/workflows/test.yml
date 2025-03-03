@@ -15,6 +15,11 @@ on:
 
 jobs:
   build:
+    environment: testing
+    env:
+      NEXT_PUBLIC_DB_NAME: ${{secrets.NEXT_PUBLIC_DB_NAME}}
+      NEXT_PUBLIC_TEST_ENV: ${{ secrets.NEXT_PUBLIC_TEST_ENV}}
+      PORT: 3000
     runs-on: ubuntu-latest
     steps:
       - name: Get Codes
