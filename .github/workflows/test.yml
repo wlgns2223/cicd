@@ -20,6 +20,9 @@ jobs:
       - name: Check Paths
         run: pwd
 
+      - name: Check files
+        run: ls -al
+
       - name: Initialize Project
         uses: ./.github/actions/setup-composite
 
