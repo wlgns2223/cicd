@@ -13,18 +13,23 @@ on:
 
   workflow_dispatch:
 
+env:
+  NEXT_PUBLIC_DB_NAME: hello
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Check Paths
-        run: pwd
+      - name: Get Codes
+        uses: actions/checkout@v4
 
-      - name: Check files
-        run: ls -al
+      - name: Install Nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
 
-      - name: Initialize Project
-        uses: ./.github/actions/setup-composite/action.yml
+      - name: Download Dependencies
+        run: npm ci
 
       - name: Build Project
         run: npm run build

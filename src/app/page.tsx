@@ -12,6 +12,11 @@ import {
 } from "../lib/storage-api";
 
 export default function Home() {
+  const env = process.env.NEXT_PUBLIC_DB_NAME;
+  if (!env) {
+    throw new Error("NEXT_PUBLIC_DB_NAME is not defined");
+  }
+
   const [todos, setTodos] = useState<TODO[]>([]);
 
   const handleSaveToStorage = async (todo: TODO) => {
