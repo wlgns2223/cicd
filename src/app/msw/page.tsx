@@ -5,7 +5,7 @@ import { NextPage } from "next";
 import { useState } from "react";
 import { useFetchTodos } from "./useFetchUsers";
 
-export const Page: NextPage = () => {
+const Page: NextPage = () => {
   const { data, isLoading } = useFetchTodos();
 
   if (isLoading) {
@@ -24,12 +24,4 @@ export const Page: NextPage = () => {
   );
 };
 
-export default () => {
-  const [qc] = useState(() => new QueryClient());
-
-  return (
-    <QueryClientProvider client={qc}>
-      <Page />
-    </QueryClientProvider>
-  );
-};
+export default Page;
