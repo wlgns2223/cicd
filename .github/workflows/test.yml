@@ -8,6 +8,8 @@ on:
   push:
     branches:
       - dev
+      - dev-* # dev-new, dev-something
+      - feat/** # feat/new, feat/something/new
 
   workflow_dispatch:
 
@@ -28,6 +30,11 @@ jobs:
 
       - name: Build Project
         run: npm run build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: .next
 
   test:
     needs: build
