@@ -64,8 +64,8 @@ jobs:
         run: |
           echo $NEXT_PUBLIC_TEST_ENV
           echo $PORT
-          echo "{{ env.NEXT_PUBLIC_DB_NAME}}"
-          echo "{{ env.PORT}}"
+          echo "${{ env.NEXT_PUBLIC_DB_NAME}}"
+          echo "${{ env.PORT }}"
 
       - name: Run Tests
         run: npm run test
