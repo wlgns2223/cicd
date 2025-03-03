@@ -1,5 +1,11 @@
 name: build,test,deploy
-on: [push, workflow_dispatch]
+on:
+  pull_request:
+    types:
+      - opened
+
+    branches:
+      - main
 
 jobs:
   build:
