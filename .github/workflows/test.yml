@@ -17,8 +17,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Check Paths
+        run: pwd
+
       - name: Initialize Project
-        uses: ./.github/actions/init
+        uses: .github/actions/init
 
       - name: Build Project
         run: npm run build
