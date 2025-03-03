@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Initialize Project
-        uses: ./actions/init
+        uses: ./github/actions/init
 
       - name: Build Project
         run: npm run build
