@@ -1,0 +1,21 @@
+name: build,test,deploy
+on:
+  push:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Codes
+        uses: actions/checkout@v4
+
+      - name: Install Nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Download Dependencies
+        run: npm ci
+
+      - name: Build Project
+        run: npm run build
