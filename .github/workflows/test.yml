@@ -44,3 +44,9 @@ jobs:
     steps:
       - name: Deploy
         run: echo "Deploy..."
+
+  context:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Github Context
+        run: echo "${{ toJSON(github) }}"
