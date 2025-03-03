@@ -21,7 +21,7 @@ jobs:
         run: pwd
 
       - name: Initialize Project
-        uses: ./.github/actions/init
+        uses: ./.github/actions
 
       - name: Build Project
         run: npm run build
