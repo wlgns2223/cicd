@@ -34,7 +34,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: .next
+          name: next-build
+          path: .next
 
   test:
     needs: build
