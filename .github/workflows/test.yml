@@ -14,7 +14,7 @@ on:
   workflow_dispatch:
 
 env:
-  NEXT_PUBLIC_DB_NAME: hello
+  NEXT_PUBLIC_DB_NAME: ${{secrets.NEXT_PUBLIC_DB_NAME}}
 
 jobs:
   build:
@@ -43,7 +43,7 @@ jobs:
 
   test:
     env:
-      NEXT_PUBLIC_TEST_ENV: test
+      NEXT_PUBLIC_TEST_ENV: ${{ secrets.NEXT_PUBLIC_TEST_ENV}}
       PORT: 3000
 
     needs: build
