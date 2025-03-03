@@ -4,8 +4,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 
 import { http, HttpResponse } from "msw";
 import { setupServer } from "msw/node";
-
-import { Page } from "./page";
+import Page from "./page";
 
 const handlers = [
   http.get("https://jsonplaceholder.typicode.com/users", () => {
