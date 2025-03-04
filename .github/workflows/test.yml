@@ -64,15 +64,16 @@ jobs:
       - name: Download Dependencies
         run: npm ci
 
-      - name: echo env
-        run: |
-          echo $NEXT_PUBLIC_TEST_ENV
-          echo $PORT
-          echo "${{ env.NEXT_PUBLIC_DB_NAME}}"
-          echo "${{ env.PORT }}"
-
       - name: Run Tests
+        id: run-tests
         run: npm run test
+
+      - name: report test
+        if: steps.run-tests.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: coverage
 
   deploy:
     needs: test
@@ -85,6 +86,13 @@ jobs:
 
       - name: Outputs
         run: ls -la
+
+      - name: echo env
+        run: |
+          echo $NEXT_PUBLIC_TEST_ENV
+          echo $PORT
+          echo "${{ env.NEXT_PUBLIC_DB_NAME}}"
+          echo "${{ env.PORT }}"
 
       - name: Deploy
         run: echo "Deploy..."
