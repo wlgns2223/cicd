@@ -15,7 +15,7 @@ on:
 
 jobs:
   build:
-    environment: testing
+    environment: production
     env:
       NEXT_PUBLIC_DB_NAME: ${{secrets.NEXT_PUBLIC_DB_NAME}}
       NEXT_PUBLIC_TEST_ENV: ${{ secrets.NEXT_PUBLIC_TEST_ENV}}
@@ -44,7 +44,7 @@ jobs:
           path: .next
 
   test:
-    environment: testing
+    environment: production
     env:
       NEXT_PUBLIC_DB_NAME: ${{secrets.NEXT_PUBLIC_DB_NAME}}
       NEXT_PUBLIC_TEST_ENV: ${{ secrets.NEXT_PUBLIC_TEST_ENV}}
