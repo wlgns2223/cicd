@@ -18,7 +18,7 @@ jobs:
         id: test
         run: npm run test
         # 특정 step이 실패하더라도 진행
-        continue-on-error: true
+        # continue-on-error: true
 
       - name: Upload Test Report
         if: success()
@@ -35,6 +35,6 @@ jobs:
         if: failure()
         run: echo "Test Failed"
 
-      - name: Test Fail Notification
+      - name: Build Fail Notification
         if: failure() && steps.build.outcome == 'failure'
         run: echo "build Failed"
