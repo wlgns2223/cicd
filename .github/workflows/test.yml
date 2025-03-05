@@ -77,7 +77,7 @@ jobs:
 
   report:
     needs: [test, build]
-    if: failure() && needs.test.result == 'failure'
+    if: failure()
     runs-on: ubuntu-latest
     steps:
       - name: print
@@ -85,6 +85,7 @@ jobs:
 
   output:
     needs: test
+    if: always()
     uses: ./.github/workflows/reusable.yml
     with:
       artifact-name: test-report
