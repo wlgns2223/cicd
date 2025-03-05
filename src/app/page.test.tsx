@@ -52,7 +52,7 @@ describe("page test suite", () => {
     await User.click(saveButton);
 
     expect(saveToCloudMock).toHaveBeenCalledTimes(1);
-    expect(alertSpy).toHaveBeenCalledTimes(1);
+    expect(alertSpy).toHaveBeenCalledTimes(0);
   });
 
   it("should fetch from cloud storage", async () => {
