@@ -76,7 +76,7 @@ jobs:
           path: coverage
 
   report:
-    needs: [test, build]
+    needs: test
     if: failure()
     runs-on: ubuntu-latest
     steps:
