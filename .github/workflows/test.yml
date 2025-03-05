@@ -1,15 +1,15 @@
 name: build,test,deploy
 on:
-  pull_request:
-    types:
-      - opened
-    branches:
-      - main
-  push:
-    branches:
-      - dev
-      - dev-* # dev-new, dev-something
-      - feat/** # feat/new, feat/something/new
+  # pull_request:
+  #   types:
+  #     - opened
+  #   branches:
+  #     - main
+  # push:
+  #   branches:
+  #     - dev
+  #     - dev-* # dev-new, dev-something
+  #     - feat/** # feat/new, feat/something/new
 
   workflow_dispatch:
 
