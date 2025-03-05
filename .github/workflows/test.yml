@@ -84,6 +84,7 @@ jobs:
         run: echo "Test failed"
 
   output:
+    needs: test
     uses: ./.github/workflows/reusable.yml
     with:
       artifact-name: test-report
