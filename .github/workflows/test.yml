@@ -77,7 +77,7 @@ jobs:
 
   report:
     needs: [test, build]
-    if: failure()
+    if: failure() && needs.test.result == 'failure'
     runs-on: ubuntu-latest
     steps:
       - name: print
