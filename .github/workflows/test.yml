@@ -75,6 +75,17 @@ jobs:
           name: test-report
           path: coverage
 
+  report:
+    needs: [test, build]
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: print
+        run: echo "Test failed"
+
+  output:
+    uses: ./.github/workflows/reusable.yml
+
   deploy:
     needs: test
     runs-on: ubuntu-latest
