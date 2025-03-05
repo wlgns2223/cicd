@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - dev
+      - main
 
 jobs:
   test-build:
@@ -38,3 +39,21 @@ jobs:
       - name: Build Fail Notification
         if: failure() && steps.build.outcome == 'failure'
         run: echo "build Failed"
+
+  lint:
+    # dev 브랜치에서만 실행
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get Codes
+        uses: actions/checkout@v4
+
+      - name: Download Dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: if lint fail
+        if: failure()
+        run: echo "Lint Failed"
