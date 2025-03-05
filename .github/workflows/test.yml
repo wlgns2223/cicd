@@ -85,6 +85,8 @@ jobs:
 
   output:
     uses: ./.github/workflows/reusable.yml
+    with:
+      artifact-name: test-report
 
   deploy:
     needs: test
