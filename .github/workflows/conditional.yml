@@ -28,6 +28,7 @@ jobs:
           path: coverage
 
       - name: Build Project
+        id: build
         run: npm run build
 
       - name: Notify
@@ -35,5 +36,5 @@ jobs:
         run: echo "Test Failed"
 
       - name: Test Fail Notification
-        if: failure() && steps.test.outcome == 'failure'
-        run: echo "Test Failed"
+        if: failure() && steps.build.outcome == 'failure'
+        run: echo "build Failed"
