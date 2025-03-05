@@ -47,6 +47,6 @@ describe("msw test suites", () => {
 
     const listItems = await screen.findAllByRole("listitem");
 
-    expect(listItems).toHaveLength(4);
+    expect(listItems).toHaveLength(3);
   });
 });

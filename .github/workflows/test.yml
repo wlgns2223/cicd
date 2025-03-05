@@ -1,14 +1,25 @@
 name: build,test,deploy
 on:
-  pull_request:
-    types:
-      - opened
+  # pull_request:
+  #   types:
+  #     - opened
+  #   branches:
+  #     - main
+  # push:
+  #   branches:
+  #     - dev
+  #     - dev-* # dev-new, dev-something
+  #     - feat/** # feat/new, feat/something/new
 
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build:
+    environment: production
+    env:
+      NEXT_PUBLIC_DB_NAME: ${{secrets.NEXT_PUBLIC_DB_NAME}}
+      NEXT_PUBLIC_TEST_ENV: ${{ secrets.NEXT_PUBLIC_TEST_ENV}}
+      PORT: 3000
     runs-on: ubuntu-latest
     steps:
       - name: Get Codes
@@ -17,7 +28,7 @@ jobs:
       - name: Install Nodejs
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: 20
 
       - name: Download Dependencies
         run: npm ci
@@ -25,7 +36,20 @@ jobs:
       - name: Build Project
         run: npm run build
 
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: next-build
+          include-hidden-files: true
+          path: .next
+
   test:
+    environment: production
+    env:
+      NEXT_PUBLIC_DB_NAME: ${{secrets.NEXT_PUBLIC_DB_NAME}}
+      NEXT_PUBLIC_TEST_ENV: ${{ secrets.NEXT_PUBLIC_TEST_ENV}}
+      PORT: 3000
+
     needs: build
     runs-on: ubuntu-latest
     steps:
@@ -41,11 +65,49 @@ jobs:
         run: npm ci
 
       - name: Run Tests
+        id: run-tests
         run: npm run test
+
+      - name: report test
+        if: failure() && steps.run-tests.outcome == 'failure'
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-report
+          path: coverage
+
+  report:
+    needs: test
+    if: failure()
+    runs-on: ubuntu-latest
+    steps:
+      - name: print
+        run: echo "Test failed"
+
+  output:
+    needs: test
+    if: always()
+    uses: ./.github/workflows/reusable.yml
+    with:
+      artifact-name: test-report
 
   deploy:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: next-build
+
+      - name: Outputs
+        run: ls -la
+
+      - name: echo env
+        run: |
+          echo $NEXT_PUBLIC_TEST_ENV
+          echo $PORT
+          echo "${{ env.NEXT_PUBLIC_DB_NAME}}"
+          echo "${{ env.PORT }}"
+
       - name: Deploy
         run: echo "Deploy..."
